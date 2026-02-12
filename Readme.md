@@ -1,221 +1,217 @@
-Cyber Sky
-=========
-🛰️🛡️🔎
+# 🛰️ Cyber Sky
 
-![Stack](https://img.shields.io/badge/stack-React%20%7C%20Express%20%7C%20FastAPI-0ea5e9)
-![DB](https://img.shields.io/badge/db-PostgreSQL-3b82f6)
-![AI](https://img.shields.io/badge/AI-Sentinel%20Engine-f97316)
+> **A Full-Stack AI-Powered Cybersecurity Command Center**
 
-Cyber Sky is a full-stack cybersecurity command center for real-time log ingestion, AI-assisted incident correlation, and analyst-facing visualizations. It combines a TypeScript/Express orchestration server, a React dashboard, and a FastAPI-based AI engine that performs prompt defense, log analysis, and remediation guidance.
+![Stack](https://img.shields.io/badge/stack-React%20%7C%20Express%20%7C%20FastAPI-0ea5e9?style=for-the-badge)
+![DB](https://img.shields.io/badge/db-PostgreSQL-3b82f6?style=for-the-badge)
+![AI](https://img.shields.io/badge/AI-Sentinel%20Engine-f97316?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
 
-Table of contents
------------------
-- Overview
-- Architecture
-- Tech stack
-- Project structure
-- API routes
-- Environment variables
-- Setup and run
-- Data model
-- Security notes
-- Troubleshooting
+**Cyber Sky** is a next-generation security dashboard designed for real-time log ingestion, AI-assisted incident correlation, and proactive threat mitigation. It combines a high-performance **Node.js/Express** orchestration server, a sleek **React** dashboard, and a **FastAPI** AI engine powered by **Google Gemini**.
 
-Overview
---------
-⚡ Key features
-- 🧠 AI-assisted incident summaries and remediation playbooks.
-- 🛰️ Real-time log ingestion and correlation (brute force, SQLi, DDoS, prompt injection).
-- 🧪 AI sandbox for safe prompt testing and DLP checks.
-- 🗺️ Visual dashboard for threats, timelines, and incidents.
-Cyber Sky focuses on:
-- Real-time log ingestion and correlation (brute force, SQLi, DDoS, prompt injection, honeytoken exfiltration).
-- AI summaries and remediation playbooks for correlated incidents.
-- A responsive dashboard for live visibility, incident timelines, and AI sandbox testing.
+---
 
-Architecture
-------------
-🏗️ Services
-Three services are intended to run together:
-1) Client (React + Vite) - analyst dashboard UI.
-2) Server (Express + Prisma) - API, correlation logic, and persistence.
-3) AI Engine (FastAPI) - prompt defense and AI summaries/playbooks.
+## 📋 Table of Contents
 
-High-level flow:
-1) Logs are posted to the server at /api/v1/logs.
-2) CorrelationService evaluates patterns and opens incidents.
-3) The AI Engine generates summaries and remediation steps.
-4) The dashboard visualizes logs and incidents.
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Architecture](#-architecture)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [API Documentation](#-api-documentation)
+- [Environment Variables](#-environment-variables)
+- [Troubleshooting](#-troubleshooting)
 
-Tech stack
-----------
-🧰 Tooling
-Frontend:
-- React 19 + TypeScript
-- Vite
-- Tailwind CSS
-- Framer Motion, Recharts, React Router
+---
 
-Backend:
-- Node.js + Express 5
-- Prisma ORM + PostgreSQL
-- JWT auth, bcrypt
+## 🔭 Overview
 
-AI Engine:
-- FastAPI
-- sentence-transformers (local similarity model)
-- Google Gemini (optional, for deep analysis)
+Cyber Sky provides a unified interface for security analysts to monitor, analyze, and respond to threats in real-time.
 
-Project structure
------------------
-🧭 Monorepo layout
+### ⚡ Key Features
+
+- **🧠 AI-Assisted Intelligence**: Automated incident summaries and actionable remediation playbooks using Gemini LLM.
+- **🛰️ Real-Time Monitoring**: Live ingestion and correlation of logs to detect Brute Force, SQL Injection, DDoS, and Prompt Injection attacks.
+- **🧪 AI Sandbox**: A safe environment for testing prompts and validating DLP (Data Loss Prevention) rules.
+- **🛡️ Server-Safe**: Upload and analyze server logs (CSV/JSON) for vulnerability assessment.
+- **🗺️ Visual Dashboard**: Interactive timelines, threat maps, and incident status tracking.
+
+---
+
+## 🏗️ Architecture
+
+The system consists of three microservices working in harmony:
+
+1.  **Client (Frontend)**: A React + Vite dashboard for analysts.
+2.  **Server (Backend)**: Express + Prisma API for data aggregation and logic.
+3.  **AI Engine (ML Service)**: FastAPI service for prompt defense, log analysis, and LLM integration.
+
+### High-Level Data Flow
+
+1.  **Ingest**: Logs are posted to `/api/v1/logs`.
+2.  **Correlate**: The Server evaluates patterns and triggers Incidents.
+3.  **Analyze**: The AI Engine generates summaries and defense strategies.
+4.  **Visualize**: The Dashboard presents real-time data to the analyst.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+-   ⚛️ **React 19** + **TypeScript**
+-   ⚡ **Vite** for fast build tooling
+-   🎨 **Tailwind CSS** for styling
+-   ✨ **Framer Motion** for animations
+-   📊 **Recharts** for data visualization
+
+### Backend
+-   🟢 **Node.js** + **Express 5**
+-   🐘 **Prisma ORM** + **PostgreSQL**
+-   🔐 **JWT** & **Bcrypt** for security
+
+### AI Engine
+-   🐍 **FastAPI** (Python)
+-   🧠 **Google Gemini** (LLM)
+-   🔎 **Sentence-Transformers** (Local embeddings)
+
+---
+
+## 🧭 Project Structure
+
+```text
 .
-├─ AI-Engine/
-│  ├─ app.py
-│  └─ requirements.txt
-├─ client/
-│  ├─ src/
-│  │  ├─ api.ts
-│  │  ├─ components/
-│  │  └─ pages/
-│  └─ package.json
-├─ server/
-│  ├─ prisma/
-│  │  └─ schema.prisma
-│  ├─ src/
-│  │  ├─ index.ts
-│  │  ├─ lib/prisma.ts
-│  │  ├─ routes/
-│  │  └─ services/
-│  └─ package.json
-├─ Execution.md
-└─ additional-features.md
+├── AI-Engine/           # Python FastAPI Service
+│   ├── app.py           # Main application entry point
+│   └── requirements.txt # Python dependencies
+├── client/              # React Frontend
+│   ├── src/
+│   │   ├── api.ts       # API integration
+│   │   ├── components/  # UI Components
+│   │   └── pages/       # Route Pages
+│   └── package.json
+├── server/              # Express Backend
+│   ├── prisma/          # Database Schema
+│   ├── src/
+│   │   ├── routes/      # API Routes
+│   │   └── services/    # Business Logic
+│   └── package.json
+└── README.md            # Project Documentation
+```
 
-API routes
-----------
-🧩 Endpoints
-Server base URL: http://localhost:3000
+---
 
-Health
-- GET /server/test
-	- Returns a simple JSON response to confirm the server is running.
+## 🚀 Getting Started
 
-Users
-- POST /api/v1/users/signup
-	- Create a user. Body: { fullName, email, password }
-- POST /api/v1/users/login
-	- Login. Body: { email, password }
-- GET /api/v1/users/listusers
-	- List users (id, fullName, email).
+### Prerequisites
+-   Node.js (v18+)
+-   Python (v3.9+)
+-   PostgreSQL
 
-Logs and incidents
-- POST /api/v1/logs
-	- Ingest a log. Body: { ip, eventType, details? }
-- GET /api/v1/logs
-	- Fetch recent logs (latest 50).
-- GET /api/v1/logs/export
-	- Download all logs as JSON.
-- GET /api/v1/logs/incidents
-	- Fetch incidents with linked logs.
-- DELETE /api/v1/logs/incidents
-	- Clear all incidents (demo reset).
+### Installation
 
-AI Engine base URL: http://localhost:8000
+1.  **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/cyber-sky.git
+    cd cyber-sky
+    ```
 
-Health
-- GET /
-	- Returns AI engine status and model availability.
+2.  **Install Dependencies**
 
-Prompt defense
-- POST /analyze
-	- Analyze a prompt. Body: { prompt, user_id? }
-	- Returns: { decision, confidence_score, reasoning, consensus_note? }
+    *Client:*
+    ```bash
+    cd client
+    npm install
+    ```
 
-Log analysis
-- POST /summarize
-	- Generate a summary and remediation steps for incident logs.
-	- Body: { logs: [{ timestamp, eventType, details }], incidentType }
+    *Server:*
+    ```bash
+    cd ../server
+    npm install
+    ```
 
-Dataset analysis (Gemini required)
-- POST /analyze-logs
-	- Upload a log file for AI-assisted threat analysis.
+    *AI Engine:*
+    ```bash
+    cd ../AI-Engine
+    pip install -r requirements.txt
+    ```
 
-AI response DLP (Gemini required)
-- POST /simulate_chat
-	- Simulates an AI response and runs DLP and honeytoken checks.
+3.  **Database Setup**
+    Create a PostgreSQL database and configure your `.env` file in the `server` directory.
+    ```bash
+    cd server
+    npx prisma migrate dev
+    ```
 
-Environment variables
----------------------
-🔐 Configuration
-Server (server/.env):
-- PORT: API port (default 3000)
-- DATABASE_URL: PostgreSQL connection string
-- JWT_SECRET: JWT signing secret
-- CLIENT_URL: allowed CORS origin (default http://localhost:5173)
-- AI_ENGINE_URL: FastAPI base URL (default http://localhost:8000)
+4.  **Start Services** (Run in separate terminals)
 
-AI Engine (AI-Engine/.env):
-- GEMINI_API_KEY: enables Gemini features (optional)
-- SERVER_URL: server base URL for incident reporting (default http://localhost:3000)
+    *Terminal 1 - AI Engine:*
+    ```bash
+    cd AI-Engine
+    python app.py
+    ```
 
-Client:
-- No required env vars. API URLs are set in client/src/api.ts.
+    *Terminal 2 - Server:*
+    ```bash
+    cd server
+    npm run dev
+    ```
 
-Setup and run
--------------
-🚀 Local setup
-1) Install dependencies
-- Client:
-	- cd client
-	- npm install
-- Server:
-	- cd server
-	- npm install
-- AI Engine:
-	- cd AI-Engine
-	- pip install -r requirements.txt
+    *Terminal 3 - Client:*
+    ```bash
+    cd client
+    npm run dev
+    ```
 
-2) Configure database
-- Create a PostgreSQL database and set DATABASE_URL in server/.env.
-- Run Prisma migrations:
-	- cd server
-	- npx prisma migrate dev
+---
 
-3) Start services (in separate terminals)
-- AI Engine:
-	- cd AI-Engine
-	- python app.py
-- Server:
-	- cd server
-	- npm run dev
-- Client:
-	- cd client
-	- npm run dev
+## 🧩 API Documentation
 
-Data model
-----------
-🗃️ Core entities
-Defined in server/prisma/schema.prisma.
-- User: id, fullName, email, password, createdAt
-- Log: id, ip, eventType, timestamp, details
-- Incident: title, description, severity, decision, mitreTechnique, remediationSteps, createdAt, logs
+### Server (`http://localhost:3000`)
 
-Security notes
---------------
-🛡️ Defense-in-depth
-- JWT is used for authentication (signup/login).
-- Helmet and CORS are enabled by default in the server.
-- AI Engine includes multi-layer prompt defense: regex checks, semantic similarity, and Gemini (when available).
-- Honeytoken detection and DLP filtering are used to flag exfiltration.
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **POST** | `/api/v1/users/login` | Authenticate user |
+| **POST** | `/api/v1/logs` | Ingest a new security log |
+| **GET** | `/api/v1/logs` | Fetch recent logs |
+| **GET** | `/api/v1/logs/incidents` | Get correlated incidents |
+| **DELETE** | `/api/v1/logs/incidents` | Clear all incidents (Demo) |
 
-Troubleshooting
----------------
-🧯 Common fixes
-- If AI summaries are empty, ensure AI Engine is running and AI_ENGINE_URL is correct.
-- If Gemini features are disabled, set GEMINI_API_KEY and restart AI Engine.
-- If CORS fails, ensure CLIENT_URL matches your frontend origin.
+### AI Engine (`http://localhost:8000`)
 
-Notes
------
-📎 References
-- Execution.md and additional-features.md describe the intended feature roadmap and extended capabilities.
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| **POST** | `/analyze` | Analyze prompt for injection attacks |
+| **POST** | `/summarize` | Generate incident summary |
+| **POST** | `/analyze-logs` | Upload log file for deep analysis |
+
+---
+
+## 🔐 Environment Variables
+
+### Server (`server/.env`)
+```env
+PORT=3000
+DATABASE_URL="postgresql://user:password@localhost:5432/cybersky"
+JWT_SECRET="your_secret_key"
+CLIENT_URL="http://localhost:5173"
+AI_ENGINE_URL="http://localhost:8000"
+```
+
+### AI Engine (`AI-Engine/.env`)
+```env
+GEMINI_API_KEY="your_gemini_api_key"
+SERVER_URL="http://localhost:3000"
+```
+
+---
+
+## 🧯 Troubleshooting
+
+-   **Empty AI Summaries?** Ensure the AI Engine is running on port 8000 and the `AI_ENGINE_URL` is set correctly in the server `.env`.
+-   **Gemini Features Disabled?** You need a valid `GEMINI_API_KEY` in `AI-Engine/.env`.
+-   **CORS Errors?** Check that `CLIENT_URL` in `server/.env` matches your frontend URL.
+
+---
+
+> Built with ❤️ for the Hackathon

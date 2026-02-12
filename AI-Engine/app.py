@@ -7,6 +7,7 @@ import torch
 from typing import List, Dict, Any
 import os
 import google.generativeai as genai
+from google.api_core.exceptions import ResourceExhausted
 import json
 import urllib.request
 import io
@@ -115,9 +116,26 @@ async def analyze_logs(file: UploadFile = File(...)):
         {sample_logs}
         """
         
-        response = gemini_model.generate_content(prompt)
-        return {"analysis": response.text}
-        
+        try:
+            response = gemini_model.generate_content(prompt)
+            return {"analysis": response.text}
+        except ResourceExhausted:
+            print("Gemini 2.0 Flash rate limited, attempting fallback to gemini-1.5-flash...")
+            try:
+                # Fallback to older flash model which might have different quota/availability
+                fallback_model = genai.GenerativeModel('gemini-1.5-flash')
+                response = fallback_model.generate_content(prompt)
+                return {"analysis": response.text}
+            except Exception as e:
+                print(f"Fallback model also failed: {e}")
+                # If fallback also fails, raise the original 429
+                raise HTTPException(
+                    status_code=429, 
+                    detail="⚠️ AI Service Busy: Rate limit exceeded. Please wait a minute and try again."
+                )
+
+    except HTTPException:
+        raise
     except Exception as e:
         print(f"Error in analyze_logs: {e}")
         import traceback

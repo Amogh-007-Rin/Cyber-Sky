@@ -1,5 +1,0 @@
-node_modules
-
-dist
-
-coverage *.log *.env.example .DS_Store .git .gitignore

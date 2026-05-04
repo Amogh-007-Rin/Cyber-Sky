@@ -1,1 +1,0 @@
-Cyber Sky is a agentic ai based automated VSPT Tool. (Under Developement Phase) 

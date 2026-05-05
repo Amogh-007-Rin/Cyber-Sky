@@ -4,6 +4,8 @@ type PrimaryButtonProps = {
     children?: React.ReactNode
 }
 
+
+// TODO: Custamized The Button Input Props And Make The Button Look PRetty. 
 export const PrimaryButton = ({label, onclick, children}: PrimaryButtonProps) => {
     return(
         <div>

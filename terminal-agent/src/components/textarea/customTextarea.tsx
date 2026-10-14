@@ -1,4 +1,5 @@
 import { useTerminalDimensions } from "@opentui/react";
+import CurrentSelectionSpecbar from "../assets/CurrentSelectionSpecbar";
 
 // 1. Maintain your custom typing format definition
 type TextAreaHeight = number | "auto" | `${number}%` | undefined;
@@ -53,36 +54,22 @@ export default function CustomTextArea() {
         <box
             style={{
                 width: getResponsiveTextAreaWidth(),
-                // 4. Bind the height property to the responsive calculation engine
                 height: getResponsiveTextAreaHeight(),
                 backgroundColor: "#222222",
+                paddingTop: 1,
                 paddingLeft: 2,
                 paddingRight: 2,
+                gap: 1,
                 overflow: "hidden"
             }}
         >
             <textarea
                 id="input-text-area"
                 placeholder="Ask the agent"
-                style={{ width: "100%", height: "100%",
-                    backgroundColor: "red"
-                }}
+                style={{ width: "100%", height: "100%", backgroundColor: "red", focusedBackgroundColor: "red"}}
             >
             </textarea>
-            <box
-                style={{
-                    width: "100%",
-                    backgroundColor: "blue",
-                    height: 1,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}
-            >
-                <text>Build</text>
-                <text>claude Fable 5.1</text>
-                <text>cyber sky</text>
-            </box>
+            <CurrentSelectionSpecbar/>
         </box>
     );
 }

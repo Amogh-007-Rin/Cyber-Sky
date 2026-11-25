@@ -110,6 +110,10 @@ export default function ModelSelectionPannel({
   }, [searchQuery]);
 
   useEffect(() => {
+    searchInputRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
     if (selectedIndex < filteredRecentModels.length) {
       modelListRef.current?.scrollTo(0);
       return;
@@ -134,8 +138,8 @@ export default function ModelSelectionPannel({
   return (
     <box
       style={{
-        height: "60%",
-        width: "35%",
+        height: 30,
+        width: 66,
         backgroundColor: "#121212",
         paddingX: 5,
         paddingY: 2,
@@ -188,9 +192,10 @@ export default function ModelSelectionPannel({
             />
           ))}
         </box>
-        {filteredRecentModels.length > 0 && filteredOpenCodeModels.length > 0 && (
-          <box style={{ height: 1 }}></box>
-        )}
+        {filteredRecentModels.length > 0 &&
+          filteredOpenCodeModels.length > 0 && (
+            <box style={{ height: 1 }}></box>
+          )}
         <box style={{ height: "auto", width: "100%" }}>
           {filteredOpenCodeModels.length > 0 && (
             <>

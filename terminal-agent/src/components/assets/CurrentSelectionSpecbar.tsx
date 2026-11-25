@@ -8,7 +8,6 @@ export default function CurrentSelectionSpecbar() {
         justifyContent: "flex-start",
         alignItems: "center",
         gap: 2,
-        backgroundColor: "blue",
       }}
     ></box>
   );
